@@ -7,12 +7,13 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 
 class ProductSeeder extends Seeder
 {
     public function run(): void
     {
-        $products = $this->products();
+        $products = Arr::take($this->products(), 100);
         $suppliers = User::select('id')->where('role', RoleEnum::SUPPLIER)->pluck('id');
 
         $data = [];
