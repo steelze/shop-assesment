@@ -61,4 +61,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+
+    public function isCustomer(): bool
+    {
+        return $this->role === RoleEnum::CUSTOMER;
+    }
+
+    public function isSupplier(): bool
+    {
+        return $this->role === RoleEnum::SUPPLIER;
+    }
 }
