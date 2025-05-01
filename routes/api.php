@@ -10,7 +10,7 @@ Route::prefix('v1')->group(function() {
     Route::prefix('auth')->group(function() {
         Route::post('register', RegisteredUserController::class);
         Route::post('login', [AuthenticatedSessionController::class, 'store']);
-        Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+        Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:sanctum');
         Route::get('profile', fn (Request $request) => $request->user())->middleware('auth:sanctum');
     });
 
