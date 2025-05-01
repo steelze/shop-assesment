@@ -14,7 +14,7 @@ class ProductController extends Controller
 {
     public function index(): JsonResponse
     {
-        $products = Product::paginate(20);
+        $products = Product::all();
         return RespondWith::success($products);
     }
 

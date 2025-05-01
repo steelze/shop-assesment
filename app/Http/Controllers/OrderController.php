@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\RespondWith;
 use App\Models\Order;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -19,9 +20,9 @@ class OrderController extends Controller
     }
 
     /**
-     * @return LengthAwarePaginator<Order> Paginated collection of orders
+     * @return Collection<Order> Paginated collection of orders
      */
-    public function orders(Request $request, User $user): LengthAwarePaginator
+    public function orders(Request $request, User $user): Collection
     {
         return Order::query()
             ->when($user->isSupplier(), function($sql) use ($user) {
@@ -31,6 +32,6 @@ class OrderController extends Controller
             }, function($sql) use ($user) {
                 return $sql->with('items.product.supplier')->where('user_id', $user->id);
             })
-            ->paginate(15);
+            ->get();
     }
 }
