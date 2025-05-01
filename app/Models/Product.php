@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,6 +20,13 @@ class Product extends Model
      */
     protected $guarded = [];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['formatted_price'];
+
     public function cartItems(): HasMany
     {
         return $this->hasMany(CartItem::class);
@@ -32,5 +40,12 @@ class Product extends Model
     public function supplier(): BelongsTo
     {
         return $this->belongsTo(User::class, 'supplier_id');
+    }
+
+    protected function formattedPrice(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => number_format($this->price / 100, 2)
+        );
     }
 }

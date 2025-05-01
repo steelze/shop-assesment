@@ -2,65 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
+use App\Helpers\RespondWith;
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
+        $products = Product::paginate(20);
+        return RespondWith::success($products);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(ProductRequest $request): JsonResponse
     {
-        //
+        $product = Product::create(array_merge($request->validated(), ['supplier_id' => Auth::id()]));
+        return RespondWith::success($product, 'Product Created Succesfully');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreProductRequest $request)
+    public function show(Product $product): JsonResponse
     {
-        //
+        return RespondWith::success($product);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $product)
+    public function update(ProductRequest $request, Product $product): JsonResponse
     {
-        //
+        throw_if($product->supplier_id !== Auth::id(), ModelNotFoundException::class);
+        $product->update($request->validated());
+
+        return RespondWith::success($product, 'Product Updated Succesfully');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Product $product)
+    public function destroy(Product $product): JsonResponse
     {
-        //
-    }
+        throw_if($product->supplier_id !== Auth::id(), ModelNotFoundException::class);
+        $product->delete();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateProductRequest $request, Product $product)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Product $product)
-    {
-        //
+        return RespondWith::success(code: Response::HTTP_NO_CONTENT);
     }
 }
