@@ -50,4 +50,4 @@ test('authenticated user can logout', function () {
     Sanctum::actingAs($user);
     $response = $this->postJson('api/v1/auth/logout');
     $response->assertNoContent();
-})->only();
+});
