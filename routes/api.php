@@ -31,13 +31,17 @@ Route::prefix('v1')->group(function() {
             Route::delete('{product}/remove', [CartController::class, 'destroy']);
         });
 
+        Route::get('orders', [OrderController::class, 'index']);
+        Route::prefix('orders')->middleware(IsCustomerMiddleware::class)->group(function() {
+            Route::post('/', [OrderController::class, 'store']);
+        });
+
         Route::prefix('products')->middleware(IsSupplierMiddleware::class)->group(function() {
             Route::post('/', [ProductController::class, 'store']);
             Route::put('{product}', [ProductController::class, 'update']);
             Route::delete('{product}', [ProductController::class, 'destroy']);
         });
 
-        Route::get('orders', OrderController::class);
     });
 });
 
