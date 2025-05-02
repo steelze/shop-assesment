@@ -1,4 +1,5 @@
 ## 🛒 Laravel E-Commerce API
+🌍 [](https://shop-assesment-main-rzfchg.laravel.cloud/api/v1/products)
 This is a minimal e-commerce API built with Laravel, powered by Laravel Sail (Docker), supporting customer/supplier flows:
 - Product management (CRUD)
 - Cart management (add/remove items)
