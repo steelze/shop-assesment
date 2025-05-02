@@ -20,7 +20,8 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request): JsonResponse
     {
-        $product = Product::create(array_merge($request->validated(), ['supplier_id' => Auth::id()]));
+        $price = $request->price * 100;
+        $product = Product::create(array_merge($request->validated(), ['supplier_id' => Auth::id(), 'price' => $price]));
         return RespondWith::success($product, 'Product Created Succesfully');
     }
 
@@ -32,7 +33,8 @@ class ProductController extends Controller
     public function update(ProductRequest $request, Product $product): JsonResponse
     {
         throw_if($product->supplier_id !== Auth::id(), ModelNotFoundException::class);
-        $product->update($request->validated());
+        $price = $request->price * 100;
+        $product->update(array_merge($request->validated(), ['price' => $price]));
 
         return RespondWith::success($product, 'Product Updated Succesfully');
     }

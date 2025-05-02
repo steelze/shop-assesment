@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreignId('supplier_id')->constrained('users')->cascadeOnDelete();
             $table->string('name');
             $table->string('category');
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->unsignedInteger('price');
             $table->unsignedSmallInteger('stock')->default(0);
             $table->json('images')->nullable();
