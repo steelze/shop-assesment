@@ -62,10 +62,13 @@ All endpoints are prefixed with `/api/v1`
 | GET | `profile` | Current Authenticated User | Yes |
 |GET | `products` | List all products | No |
 |POST | `products` | Create product (Supplier) | Yes |
+|PUT | `products/{id}` | Update product (Supplier) | Yes |
+|DELETE | `products/{id}` | Delete product (Supplier) | Yes |
 |POST | `carts` | Add product to cart | Yes |
 |GET | `carts` | Get items in cart | Yes |
 |DELETE | `carts/{product_id}/remove` | Remove item from cart | Yes |
 |GET | `orders` | List user orsupplier orders | Yes |
+|POST | `orders` | Place orders | Yes |
 
 
 ## Running Tests 🏃‍♂️🏃‍♂️
