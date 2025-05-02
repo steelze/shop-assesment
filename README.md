@@ -5,7 +5,8 @@ This is a minimal e-commerce API built with Laravel, powered by Laravel Sail (Do
 - Order listing
 - Role-based access (Customer vs Supplier)
 
-- 🌍 [Live Url](https://shop-assesment-main-rzfchg.laravel.cloud/api/v1/products)
+- 🌍 [Live Url FE](https://super-fenglisu-070e3b.netlify.app/)
+- 🌍 [Live Url BE](https://shop-assesment-main-rzfchg.laravel.cloud/api/v1/products)
 
 
 ## 🚀 Getting Started
@@ -84,3 +85,23 @@ bash `./vendor/bin/sail artisan test`
 2. Refresh Database and Re-seed
 
 bash `./vendor/bin/sail artisan migrate:fresh --seed`
+
+## Notes
+### 🧩 Project Structure & Approach
+In line with the suggested 6–8 hour time constraint, I prioritized:
+- A clear API design with clear separation of supplier vs customer flow
+- Endpoints testing and proper request validation
+- Basic authentication/authorization layers using Laravel Sanctum
+- Database seeders for quick testing
+- A documented Postman collection to simulate end-to-end usage
+
+### 🔐 Role-Based Authentication
+- I used a single users table with a role column to distinguish between supplier and customer using an enum-based approach (e.g., RoleEnum::CUSTOMER, RoleEnum::SUPPLIER).
+- At registration, a role is passed in the payload (/register) and used to assign proper permissions.
+- Middleware was implemented to restrict access to routes based on role (e.g., suppliers cannot access customer-specific routes and vice versa).
+- This allows for one login system, but two isolated experiences per role — including token-based auth that reflects access rights.
+
+### 💡 What I Would Add With More Time
+Currently, I prioritized the API for the supplier flow (CRUD products, view orders), but due to time limits I did not implement a UI for product CRUD operations. The APIs are fully functional and tested via Postman. I also did not implement product image upload which I would have loved to do 
+
+I would have also handled some FE ux quirks, like all bitton disabled when adding to cart, ability to remove from cart/update quantity in cart. Proper error message display etc 
