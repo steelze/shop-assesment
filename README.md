@@ -91,15 +91,15 @@ bash `./vendor/bin/sail artisan migrate:fresh --seed`
 In line with the suggested 6–8 hour time constraint, I prioritized:
 - A clear API design with clear separation of supplier vs customer flow
 - Endpoints testing and proper request validation
-- Basic authentication/authorization layers using Laravel Sanctum
+- Basic authentication/authorization using Laravel Sanctum
 - Database seeders for quick testing
 - A documented Postman collection to simulate end-to-end usage
 
 ### 🔐 Role-Based Authentication
 - I used a single users table with a role column to distinguish between supplier and customer using an enum-based approach (e.g., RoleEnum::CUSTOMER, RoleEnum::SUPPLIER).
-- At registration, a role is passed in the payload (/register) and used to assign proper permissions.
+- At registration, a role is passed in the payload (/register)
 - Middleware was implemented to restrict access to routes based on role (e.g., suppliers cannot access customer-specific routes and vice versa).
-- This allows for one login system, but two isolated experiences per role — including token-based auth that reflects access rights.
+- This allows for one login system, but two isolated experiences per role.
 
 ### 💡 What I Would Add With More Time
 Currently, I prioritized the API for the supplier flow (CRUD products, view orders), but due to time limits I did not implement a UI for product CRUD operations. The APIs are fully functional and tested via Postman. I also did not implement product image upload which I would have loved to do 
