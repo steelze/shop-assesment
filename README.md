@@ -73,7 +73,7 @@ All endpoints are prefixed with `/api/v1`
 1. Run All Tests
 
 bash `./vendor/bin/sail artisan test`
-[https://github.com/steelze/shop-assesment/blob/main/public/Screenshot%202025-05-02%20at%2008.08.48.png]
+![alt text](https://github.com/steelze/shop-assesment/blob/main/public/Screenshot%202025-05-02%20at%2008.08.48.png)
 
 2. Refresh Database and Re-seed
 
